@@ -1,6 +1,11 @@
 package edu.txstate.chess.board;
 
-public final class Position {
+import java.io.Serializable;
+import java.util.Objects;
+
+public final class Position implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private final int row;
     private final int col;
 
@@ -15,5 +20,18 @@ public final class Position {
 
     public int getCol() {
         return col;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Position)) return false;
+        Position position = (Position) o;
+        return row == position.row && col == position.col;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(row, col);
     }
 }

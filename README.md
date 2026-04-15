@@ -1,40 +1,44 @@
-# CS3354 Team Surgeson – Console Chess (Phase 1)
+# CS3354 Team Surgeson – Chess Project
 
-## How to build and run
+This repository contains both **Phase 1** and **Phase 2** of our chess project.
 
-Requirements: Java JDK 21 (or compatible).
+## Phase 2 Code
 
+The **Phase 2** implementation is the Java Swing GUI version of the chess project.  
+Phase 2 code is primarily located in these files and folders:
+
+- `src/edu/txstate/chess/gui/`
+- `src/edu/txstate/chess/board/`
+- `src/edu/txstate/chess/pieces/`
+- `src/edu/txstate/chess/Game.java`
+- `src/edu/txstate/chess/Player.java`
+- `src/edu/txstate/chess/util/`
+
+Phase 2 features include:
+
+- 8x8 Swing chessboard GUI
+- Graphical display of all chess pieces
+- Mouse-based piece movement
+- Piece capturing
+- Endgame popup notification
+- Menu bar with **New Game**, **Save Game**, and **Load Game**
+- Settings window for board customization
+
+## How to Build and Run
+
+### Requirements
+- Java JDK 21 or compatible
+
+### Compile
 From the project root:
 
-```bash
-javac -d out src/edu/txstate/chess/board/*.java src/edu/txstate/chess/pieces/*.java src/edu/txstate/chess/util/*.java src/edu/txstate/chess/Game.java src/edu/txstate/chess/Player.java
+```bat
+javac -d out src/edu/txstate/chess/board/*.java src/edu/txstate/chess/pieces/*.java src/edu/txstate/chess/util/*.java src/edu/txstate/chess/gui/*.java src/edu/txstate/chess/Game.java src/edu/txstate/chess/Player.java
+```
+
+### Run
+```bat
 java -cp out edu.txstate.chess.Game
 ```
 
-(Windows users can also use the full JDK path if needed, e.g. `"C:\Program Files\Java\jdk-21.0.10\bin\javac.exe"`.)
-
-## How to play
-
-- The board prints with files A–H and ranks 1–8.
-- White uses symbols `wK`, `wQ`, `wR`, `wB`, `wN`, `wp`; black uses `bK`, `bQ`, `bR`, `bB`, `bN`, `bp`.
-- Empty squares are shown as `##`.
-- On your turn, enter moves like `E2 E4` (case-insensitive).
-- Type `quit` to end the game.
-
-## Implemented (Phase 1)
-
-- 8x8 board with standard chess initial setup.
-- Console-based board rendering with coordinates and `##` for empty squares.
-- Command-line game loop showing whose turn it is.
-- Input parsing and format validation for moves like `E2 E4`.
-- Basic move legality:
-  - Must move your own color.
-  - Cannot capture your own pieces.
-  - Pawns move forward (one or two squares from the start) and capture diagonally.
-  - Rooks move horizontally/vertically without jumping through pieces.
-
-## Not implemented yet
-
-- Movement rules for bishops, knights, queens, and kings.
-- Check, checkmate, and stalemate detection.
-- Castling, en passant, and pawn promotion.
+Windows users can also use the full JDK path if needed, for exa

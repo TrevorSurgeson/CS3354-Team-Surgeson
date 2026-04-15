@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class Rook extends Piece {
-
     public Rook(Color color) {
         super(color);
     }
@@ -14,40 +13,29 @@ public final class Rook extends Piece {
     @Override
     public List<Position> possibleMoves(Board board, Position from) {
         List<Position> moves = new ArrayList<>();
-
-        int row = from.getRow();
-        int col = from.getCol();
-
-        for (int r = row + 1; r < 8; r++) {
-            if (!addSquare(board, moves, r, col)) break;
-        }
-        for (int r = row - 1; r >= 0; r--) {
-            if (!addSquare(board, moves, r, col)) break;
-        }
-        for (int c = col + 1; c < 8; c++) {
-            if (!addSquare(board, moves, row, c)) break;
-        }
-        for (int c = col - 1; c >= 0; c--) {
-            if (!addSquare(board, moves, row, c)) break;
-        }
-
+        addLine(board, moves, from, 1, 0);
+        addLine(board, moves, from, -1, 0);
+        addLine(board, moves, from, 0, 1);
+        addLine(board, moves, from, 0, -1);
         return moves;
     }
 
-    private boolean addSquare(Board board, List<Position> moves, int row, int col) {
-        if (!board.isInsideBoard(row, col)) {
-            return false;
-        }
-        Position p = new Position(row, col);
-        Piece target = board.getPiece(p);
-        if (target == null) {
-            moves.add(p);
-            return true;
-        } else {
-            if (target.getColor() != getColor()) {
+    private void addLine(Board board, List<Position> moves, Position from, int dr, int dc) {
+        int r = from.getRow() + dr;
+        int c = from.getCol() + dc;
+        while (board.isInsideBoard(r, c)) {
+            Position p = new Position(r, c);
+            Piece target = board.getPiece(p);
+            if (target == null) {
                 moves.add(p);
+            } else {
+                if (target.getColor() != getColor()) {
+                    moves.add(p);
+                }
+                break;
             }
-            return false;
+            r += dr;
+            c += dc;
         }
     }
 

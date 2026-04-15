@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class Pawn extends Piece {
-
     public Pawn(Color color) {
         super(color);
     }
@@ -26,22 +25,21 @@ public final class Pawn extends Piece {
             }
         }
 
-        int leftCol = from.getCol() - 1;
-        int rightCol = from.getCol() + 1;
-        if (board.isInsideBoard(oneStepRow, leftCol)) {
-            Position diagLeft = new Position(oneStepRow, leftCol);
-            var target = board.getPiece(diagLeft);
+        for (int dc : new int[]{-1, 1}) {
+            int c = from.getCol() + dc;
+            if (!board.isInsideBoard(oneStepRow, c)) continue;
+            Position diag = new Position(oneStepRow, c);
+            Piece target = board.getPiece(diag);
             if (target != null && target.getColor() != getColor()) {
-                moves.add(diagLeft);
+                moves.add(diag);
             }
         }
-        if (board.isInsideBoard(oneStepRow, rightCol)) {
-            Position diagRight = new Position(oneStepRow, rightCol);
-            var target = board.getPiece(diagRight);
-            if (target != null && target.getColor() != getColor()) {
-                moves.add(diagRight);
-            }
+
+        Position enPassant = board.getEnPassantTarget();
+        if (enPassant != null && enPassant.getRow() == oneStepRow && Math.abs(enPassant.getCol() - from.getCol()) == 1) {
+            moves.add(enPassant);
         }
+
         return moves;
     }
 
